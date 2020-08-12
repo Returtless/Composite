@@ -15,6 +15,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let data1 = FilesData.data(from: "1")
+        let data2 = FilesData.data(from: "2")
+        let data3 = FilesData.data(from: "3")
+        
+        let firstJsonDecoderHandler = FirstJsonDecoderHandler()
+        let secondJsonDecoderHandler = SecondJsonDecoderHandler()
+        let thirdJsonDecoderHandler = ThirdJsonDecoderHandler()
+        firstJsonDecoderHandler.next = secondJsonDecoderHandler
+        secondJsonDecoderHandler.next = thirdJsonDecoderHandler
+        thirdJsonDecoderHandler.next = nil
+
+        print(firstJsonDecoderHandler.handleData(data1))
+        print(firstJsonDecoderHandler.handleData(data2))
+        print(firstJsonDecoderHandler.handleData(data3))
         return true
     }
 
